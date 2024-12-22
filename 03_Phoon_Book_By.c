@@ -1,136 +1,104 @@
 #include <stdio.h>
-int main()
-{
+#include <stdlib.h>
+#include <string.h>
 
-    char n[50], add[50], na[50], addr[50];
-    int a, p, d, age, ph, da;
+#define MAX_CONTACTS 10
 
-    printf("WELCOME TO PHONE BOOK\n\n");
-    printf("MENU\n");
-    printf("Press 1 to add the contact\n\n ");
+// Structure to store contact information
+typedef struct {
+    char name[50];
+    int age;
+    int phoneNumber;
+    int dob; // Date of birth as an integer in DDMMYYYY format
+    char address[100];
+} Contact;
 
-    int x;
-    printf("Enter\n");
-    printf("%d", x);
+void addContact(Contact contacts[], int *contactCount) {
+    if (*contactCount >= MAX_CONTACTS) {
+        printf("Phone book is full!\n");
+        return;
+    }
 
-    if (x == 1)
-    {
+    Contact newContact;
+    printf("Enter name: ");
+    fgets(newContact.name, 50, stdin);
+    newContact.name[strcspn(newContact.name, "\n")] = 0; // Removing newline character
 
-        int y;
-        printf("Enter the number of contact to be added : ");
-        printf("%d", y);
+    printf("Enter age: ");
+    scanf("%d", &newContact.age);
 
-        if (y == 1)
-        {
+    printf("Enter phone number: ");
+    scanf("%d", &newContact.phoneNumber);
 
-            printf("----------------------\n");
-            printf("Name :");
-            printf("%s", n);
-            printf("Age :");
-            printf("%d", a);
-            printf("Phone Number : ");
-            printf("%d", p);
-            printf("Date of Birth : ");
-            printf("%d", d);
-            printf("Address : ");
-            printf("%d", add);
-            printf("--------------------\n");
-        }
-        else if (y == 2)
-        {
+    printf("Enter date of birth (DDMMYYYY): ");
+    scanf("%d", &newContact.dob);
 
-            printf("----------------------\n");
-            printf("Name :");
-            printf("%s", na);
-            printf("Age :");
-            printf("%d", age);
-            printf("Phone Number : ");
-            printf("%d", ph);
-            printf("Date of Birth : ");
-            printf("%d", da);
-            printf("Address : ");
-            printf("%d", addr);
-            printf("--------------------\n");
-        }
-        printf("Press 2 to see the entered contact\n");
-        printf("Press 3 to exit the phone book\n");
+    getchar(); // To consume the newline left by scanf
 
-        int z;
-        printf("Enter\n");
-        printf("%d", z);
+    printf("Enter address: ");
+    fgets(newContact.address, 100, stdin);
+    newContact.address[strcspn(newContact.address, "\n")] = 0; // Removing newline character
 
-        if (z == 2)
-        {
+    contacts[*contactCount] = newContact;
+    (*contactCount)++;
+    printf("Contact added successfully!\n");
+}
 
-            int num;
-            printf("Enter the number of contect to be viewed : ");
+void viewContacts(Contact contacts[], int contactCount) {
+    if (contactCount == 0) {
+        printf("No contacts to display.\n");
+        return;
+    }
 
-            printf("----------------------\n");
-            printf("Name :");
-            printf("%s", n);
-            printf("Age :");
-            printf("%d", a);
-            printf("Phone Number : ");
-            printf("%d", p);
-            printf("Date of Birth : ");
-            printf("%d", d);
-            printf("Address : ");
-            printf("%d", add);
-            printf("--------------------\n");
-        }
+    for (int i = 0; i < contactCount; i++) {
+        printf("\nContact %d:\n", i + 1);
+        printf("Name: %s\n", contacts[i].name);
+        printf("Age: %d\n", contacts[i].age);
+        printf("Phone Number: %d\n", contacts[i].phoneNumber);
+        printf("Date of Birth: %d\n", contacts[i].dob);
+        printf("Address: %s\n", contacts[i].address);
+        printf("----------------------\n");
+    }
+}
 
-        else if (num == 2)
-        {
+int main() {
+    Contact contacts[MAX_CONTACTS];
+    int contactCount = 0;
 
-            printf("----------------------\n");
-            printf("Name :");
-            printf("%s", n);
-            printf("Age :");
-            printf("%d", a);
-            printf("Phone Number : ");
-            printf("%d", p);
-            printf("Date of Birth : ");
-            printf("%d", d);
-            printf("Address : ");
-            printf("%d", add);
-            printf("--------------------\n");
+    while (1) {
+        int choice;
+        printf("\nWELCOME TO PHONE BOOK\n");
+        printf("MENU:\n");
+        printf("1. Add Contact\n");
+        printf("2. View Contacts\n");
+        printf("3. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        getchar(); // To consume the newline left by scanf
 
-            printf("----------------------\n");
-            printf("Name :");
-            printf("%s", na);
-            printf("Age :");
-            printf("%d", age);
-            printf("Phone Number : ");
-            printf("%d", ph);
-            printf("Date of Birth : ");
-            printf("%d", da);
-            printf("Address : ");
-            printf("%d", addr);
-            printf("--------------------\n");
-        }
-
-        else if (z == 3)
-        {
-
-            printf("Are you sure you want to close the phone book\n");
-            printf("Press 1 for yess\n");
-            printf("Press 2 for noo\n");
-            int ans;
-
-            printf("Enter \n");
-            scanf("%d", &ans);
-            if (ans == 1)
-            {
-
-                printf("The phone has closed \n");
-                printf("Have a good day \n");
-            }
-
-            else if (ans == 2)
-            {
-
-                printf("")
-            }
+        switch (choice) {
+            case 1:
+                addContact(contacts, &contactCount);
+                break;
+            case 2:
+                viewContacts(contacts, contactCount);
+                break;
+            case 3:
+                printf("Are you sure you want to close the phone book?\n");
+                printf("Press 1 for yes, 2 for no: ");
+                int exitChoice;
+                scanf("%d", &exitChoice);
+                if (exitChoice == 1) {
+                    printf("The phone book has been closed.\n");
+                    return 0;
+                } else {
+                    printf("You can continue using the phone book.\n");
+                }
+                break;
+            default:
+                printf("Invalid choice, please try again.\n");
         }
     }
+
+    return 0;
 }
