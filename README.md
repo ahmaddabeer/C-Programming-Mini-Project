@@ -44,8 +44,7 @@ This is a **Phone Book Application** written in **C** that allows users to add, 
 1. Clone or download the project.
 2. Open the C file in your preferred IDE or text editor (e.g., Visual Studio Code, Code::Blocks).
 3. Compile the program using the command:
-   ```bash
-   gcc -o phonebook phonebook.c
+  
 
 
 
