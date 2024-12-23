@@ -18,7 +18,7 @@ Welcome to the **C Quiz Game**! This is a simple command-line quiz game written 
 
 The game currently contains 5 questions, with each question worth 5 points. Here’s an example question format:
 <p>------------------------------------------------------------------------------------------------------------------</p>
-# 📖 **Phone Book Application in C** 📞
+<h1># 📖 **Phone Book Application in C** 📞</h1>
 
 This is a **Phone Book Application** written in **C** that allows users to add, view, and manage contacts. The program uses a simple menu system to interact with the user. You can add up to 10 contacts, each with the following information:
 - Name
